@@ -23,6 +23,8 @@ https://lms-python.onrender.com/
 1. Clone the repository:
 ```
 git clone https://github.com/Brothin/LMS_Python
+```
+```
 cd LMS_Python
 ```
 2. Install dependencies:
