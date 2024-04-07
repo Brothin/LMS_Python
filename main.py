@@ -34,14 +34,14 @@ class Student(BaseModel):
     address: Address
 
 # CRUD operations
-@app.post("/students/", status_code=201)
-async def create_student(student: Student):
+@app.post("/students", status_code=201)
+async def create_students(student: Student):
     student_dict = student.dict()
     inserted = collection.insert_one(student_dict)
     return {"id": str(inserted.inserted_id)}
 
-@app.get("/students/", status_code=200)
-async def get_students(country: str = None, age: int = None):
+@app.get("/students", status_code=200)
+async def list_students(country: str = None, age: int = None):
     filter_dict = {}
     if country:
         filter_dict["address.country"] = country
@@ -55,7 +55,7 @@ async def get_students(country: str = None, age: int = None):
     return response_data
 
 @app.get("/students/{student_id}", status_code=200)
-async def get_student(student_id: str):
+async def fetch_student(student_id: str):
     student = collection.find_one({"_id": ObjectId(student_id)})
     if not student:
         raise HTTPException(status_code=404, detail="Student not found")
